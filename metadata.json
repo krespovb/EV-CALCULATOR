@@ -1,5 +1,0 @@
-{
-  "name": "EV Charge Smart Spain",
-  "description": "A robust electric vehicle charging calculator and smart schedule optimizer using Spanish electricity market data (PVPC).",
-  "requestFramePermissions": []
-}
