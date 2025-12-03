@@ -17,6 +17,12 @@ export const getElectricityPrices = async (isTomorrow: boolean = false): Promise
   // In a real browser-only environment without a proxy, external APIs often fail CORS.
   // We will attempt a fetch, but likely default to fallback for stability in this demo environment.
   
+  const d = new Date();
+  if (isTomorrow) {
+    d.setDate(d.getDate() + 1);
+  }
+  const dateStr = d.toISOString().split('T')[0];
+
   try {
     // Note: This specific API endpoint often blocks cross-origin. 
     // We add a short timeout to fail fast and show the "Offline Mode" logic which is a requirement.
@@ -56,7 +62,7 @@ export const getElectricityPrices = async (isTomorrow: boolean = false): Promise
         return {
             hour,
             price: priceKwh,
-            isTomorrow,
+            date: dateStr,
             displayHour: `${hour.toString().padStart(2, '0')}:00`
         };
     }).sort((a, b) => a.hour - b.hour);
@@ -66,7 +72,7 @@ export const getElectricityPrices = async (isTomorrow: boolean = false): Promise
   } catch (error) {
     console.warn("API unavailable or CORS blocked. Using robust fallback data.", error);
     return { 
-      data: generateFallbackData(isTomorrow), 
+      data: generateFallbackData(dateStr), 
       usingFallback: true 
     };
   }

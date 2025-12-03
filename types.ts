@@ -1,8 +1,8 @@
 export interface PricePoint {
   hour: number; // 0 to 23
   price: number; // €/kWh
-  isTomorrow: boolean;
-  displayHour: string; // "00:00", "01:00"
+  date: string; // YYYY-MM-DD
+  displayHour: string; // "00:00"
 }
 
 export interface ChargingOption {
